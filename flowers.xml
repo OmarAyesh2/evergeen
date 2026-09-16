@@ -1,0 +1,1122 @@
+```python
+html_data = """<div class="sc-3e1215a5-0 bARbqN"><div data-testid="menu-category"><div data-testid="accordion" class="sc-1bf12ad-0 ilBSTs"><div class="accordion px-3 py-2 d-flex mb-1 clickable text-truncate "><div class="text-wrap pr-2 f-14 f-500"><h4 class="f-20 f-500"> Picks for you 🔥 </h4></div><div class="ml-auto f-12 dark-gray"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" class="svg-inline--fa fa-chevron-up fa-w-14 fa-lg " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-testid="panel-arrow"><path fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg> </div></div><div class="content open"><div class="px-0 py-2 b-t px-m-0"><div class="sc-a31f9fb2-0 dyJtfK d-flex justify-content-between py-2 clickable"><div data-testid="desktop-image" class="img d-flex justify-content-center align-items-center mr-2 b-a"><div class="sc-1e6b52c1-2 exNGGn"><div class="sc-1e6b52c1-1 ecdIEH d-flex justify-content-center align-items-center w-100"><div style="transition: opacity 500ms ease-in-out; opacity: 1; display: inline-block;"><img src="https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386425/b9efc2ef-db98-4e24-8daf-b2d1f3a42bc7.jpg?width=172&amp;amp;height=172" height="58" alt="Mix Rose 4"></div></div></div></div><div class="item-name"><div class="f-15">Mix Rose 4</div><div class="f-12 description">A wonderful bouquet of flowers containing 2 stems of Stargazer lilies and 2 stems of cherry blossoms scattered with beautiful pink and white packaging.</div></div><div class="text-right price-rating"><div class="mb-m-1 price"><div data-testid="old-price" class="lin-thr"><span class="currency-symbol ">JOD</span> <span class="currency ">24.00</span></div><div class="mb-m-1"><span class="currency-symbol ">JOD</span> <span class="currency ">15.60</span></div></div></div><div class="align-self-end ml-1 ml-m-0"><button class="button_button__DY7_2 button_button-primary__4fKmm button_button-size-md__7maya menu-add-btn d-flex justify-content-center align-items-center"><span class="btn-icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14 fa-sm " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg></span><span class="btn-text f-10">Add</span></button></div></div>"""
+print("Basic test")
+
+
+```
+
+```text
+Basic test
+
+
+```
+
+```python
+import os
+print(os.listdir('.'))
+
+
+```
+
+```text
+['Untitled-1.xml']
+
+
+```
+
+```python
+with open('Untitled-1.xml', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+print(f"Length of content: {len(content)}")
+print(content[:500])
+
+
+```
+
+```text
+Length of content: 607923
+<div class="sc-3e1215a5-0 bARbqN"><div data-testid="menu-category"><div data-testid="accordion" class="sc-1bf12ad-0 ilBSTs"><div class="accordion px-3 py-2 d-flex mb-1 clickable text-truncate "><div class="text-wrap pr-2 f-14 f-500"><h4 class="f-20 f-500"> Picks for you 🔥 </h4></div><div class="ml-auto f-12 dark-gray"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" class="svg-inline--fa fa-chevron-up fa-w-14 fa-lg " role="img" xmlns="http://www.w3.org/2000/svg"
+
+
+```
+
+```python
+from bs4 import BeautifulSoup
+
+soup = BeautifulSoup(content, 'html.parser')
+categories = soup.find_all('div', attrs={'data-testid': 'menu-category'})
+print(f"Number of categories: {len(categories)}")
+
+# Let's inspect how items are structured
+items = soup.find_all('div', class_=lambda c: c and 'sc-a31f9fb2-0' in c)
+print(f"Number of product items found: {len(items)}")
+
+
+```
+
+```text
+Traceback (most recent call last):
+  File "<xbox-string>", line 1, in <module>
+    from bs4 import BeautifulSoup
+ModuleNotFoundError: No module named 'bs4'
+
+
+```
+
+```python
+for mod in ['lxml', 'xml', 'html', 'openpyxl', 'pandas']:
+    try:
+        __import__(mod)
+        print(f"{mod}: available")
+    except ImportError:
+        print(f"{mod}: NOT available")
+
+
+```
+
+```text
+lxml: available
+xml: available
+html: available
+openpyxl: available
+pandas: available
+
+
+```
+
+```python
+import lxml.html
+
+doc = lxml.html.fromstring(content)
+categories = doc.xpath('//div[@data-testid="menu-category"]')
+print(f"Categories found: {len(categories)}")
+
+items = doc.xpath('//div[contains(@class, "sc-a31f9fb2-0")]')
+print(f"Items found: {len(items)}")
+
+
+```
+
+```text
+Categories found: 16
+Items found: 319
+
+
+```
+
+```python
+sample_items = items[:5]
+
+for i, it in enumerate(sample_items):
+    # Name
+    name_el = it.xpath('.//div[contains(@class, "item-name")]/div[contains(@class, "f-15")]')
+    name = name_el[0].text_content().strip() if name_el else "N/A"
+    
+    # Description
+    desc_el = it.xpath('.//div[contains(@class, "description")]')
+    desc = desc_el[0].text_content().strip() if desc_el else ""
+    
+    # Image
+    img_el = it.xpath('.//img')
+    img_src = img_el[0].get('src', '') if img_el else ""
+    
+    # Old price (before offer)
+    old_price_el = it.xpath('.//*[@data-testid="old-price"]')
+    old_price = old_price_el[0].text_content().strip() if old_price_el else ""
+    
+    # Current price / offer price
+    # Look at price container
+    price_container = it.xpath('.//div[contains(@class, "price")]')
+    price_text = price_container[0].text_content().strip() if price_container else ""
+    
+    print(f"Item {i+1}:")
+    print(f"  Name: {name}")
+    print(f"  Old Price raw: {old_price}")
+    print(f"  Price container raw: {price_text}")
+    print(f"  Image: {img_src}")
+    print()
+
+
+```
+
+```text
+Item 1:
+  Name: Mix Rose 4
+  Old Price raw: JOD 24.00
+  Price container raw: JOD 24.00JOD 15.60
+  Image: https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386425/b9efc2ef-db98-4e24-8daf-b2d1f3a42bc7.jpg?width=172&amp;height=172
+
+Item 2:
+  Name: Mix Rose 3
+  Old Price raw: JOD 41.00
+  Price container raw: JOD 41.00JOD 26.65
+  Image: https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386558/7832ec53-1e9e-4df4-822f-a61b0705da7b.jpg?width=172&amp;height=172
+
+Item 3:
+  Name: New Baby Boy 1
+  Old Price raw: JOD 30.00
+  Price container raw: JOD 30.00JOD 24.00
+  Image: https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070351/a27ca366-b2bf-42a0-a201-20f9714030f0.jpg?width=172&amp;height=172
+
+Item 4:
+  Name: Pink Rose 21
+  Old Price raw: JOD 45.00
+  Price container raw: JOD 45.00JOD 29.25
+  Image: https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/9b8da7b1-b8fa-414a-bd15-0730f6b0fac8.jpg?width=172&amp;height=172
+
+Item 5:
+  Name: Blue Rose 5
+  Old Price raw: JOD 105.00
+  Price container raw: JOD 105.00JOD 68.25
+  Image: https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000117072/8c5fbf2c-2d44-40f1-8358-4d45c3e0cb46.jpg?width=172&amp;height=172
+
+
+
+```
+
+```python
+it = items[5]
+name_el = it.xpath('.//div[contains(@class, "item-name")]/div[contains(@class, "f-15")]')
+old_price_el = it.xpath('.//*[@data-testid="old-price"]')
+all_spans = it.xpath('.//div[contains(@class, "price")]//span[contains(@class, "currency")]')
+print("Name:", name_el[0].text_content().strip())
+print("Old price el:", [e.text_content().strip() for e in old_price_el])
+print("All currency spans:", [e.text_content().strip() for e in all_spans])
+
+
+```
+
+```text
+Name: Deep love with chocolate
+Old price el: []
+All currency spans: ['JOD', '50.00']
+
+
+```
+
+```python
+import re
+
+data = []
+for idx, it in enumerate(items):
+    name_el = it.xpath('.//div[contains(@class, "item-name")]/div[contains(@class, "f-15")]')
+    name = name_el[0].text_content().strip() if name_el else ""
+    
+    img_el = it.xpath('.//img')
+    img_src = img_el[0].get('src', '') if img_el else ""
+    # Clean image url: sometimes there are HTML entities like &amp;
+    img_src = img_src.replace('&amp;', '&')
+    
+    # Old price
+    old_price_el = it.xpath('.//*[@data-testid="old-price"]')
+    if old_price_el:
+        # Extract currency number
+        c_el = old_price_el[0].xpath('.//span[contains(@class, "currency ") or @class="currency"]')
+        if c_el:
+            old_price_val = c_el[0].text_content().strip()
+        else:
+            old_price_val = old_price_el[0].text_content().replace('JOD', '').strip()
+    else:
+        old_price_val = None
+        
+    # Current / final price
+    # The price container has old price (if any) and current price
+    price_div = it.xpath('.//div[contains(@class, "price")]')
+    curr_price_val = None
+    if price_div:
+        # Find all div.mb-m-1 inside price_div not inside old-price
+        curr_spans = price_div[0].xpath('.//div[not(@data-testid="old-price")]//span[contains(@class, "currency ") or @class="currency"]')
+        if curr_spans:
+            curr_price_val = curr_spans[-1].text_content().strip()
+        else:
+            # fallback
+            all_curr = price_div[0].xpath('.//span[contains(@class, "currency ") or @class="currency"]')
+            if all_curr:
+                curr_price_val = all_curr[-1].text_content().strip()
+
+    data.append({
+        'index': idx,
+        'name': name,
+        'old_price_raw': old_price_val,
+        'curr_price_raw': curr_price_val,
+        'img': img_src
+    })
+
+import pandas as pd
+df = pd.DataFrame(data)
+print(f"Total items parsed: {len(df)}")
+print(f"Items with old_price: {df['old_price_raw'].notna().sum()}")
+print(f"Items without old_price: {df['old_price_raw'].isna().sum()}")
+print("\nItems without old_price sample:")
+print(df[df['old_price_raw'].isna()][['name', 'curr_price_raw', 'img']].head())
+
+
+```
+
+```text
+Total items parsed: 319
+Items with old_price: 299
+Items without old_price: 20
+
+Items without old_price sample:
+                         name curr_price_raw                                                                                                                                                           img
+5    Deep love with chocolate          50.00  https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386301/8947dbff-8f6e-4a70-b627-e840c6234b3c.jpg?width=172&height=172
+277        Mother's Day Vip 1          60.00                                                                                                                            /assets/images/img-placeholder.svg
+278        Mother's Day Vip 2         120.00                                                                                                                            /assets/images/img-placeholder.svg
+279        Mother's Day Vip 3          80.00                                                                                                                            /assets/images/img-placeholder.svg
+280        Mother's Day Vip 4         240.00                                                                                                                            /assets/images/img-placeholder.svg
+
+
+```
+
+```python
+# Check categories
+categories = doc.xpath('//div[@data-testid="menu-category"]')
+cat_items = []
+for cat in categories:
+    cat_title_el = cat.xpath('.//h4')
+    cat_title = cat_title_el[0].text_content().strip() if cat_title_el else "Unknown Category"
+    items_in_cat = cat.xpath('.//div[contains(@class, "sc-a31f9fb2-0")]')
+    cat_items.append((cat_title, len(items_in_cat)))
+    
+for c, count in cat_items:
+    print(f"Category: {c:<35} | Items: {count}")
+
+
+```
+
+```text
+Category: Picks for you 🔥                     | Items: 6
+Category: Offers                              | Items: 147
+Category: Mix Roses                           | Items: 15
+Category: White Roses                         | Items: 19
+Category: Pink Roses                          | Items: 24
+Category: Red Roses                           | Items: 30
+Category: Peach Roses                         | Items: 6
+Category: Orange Roses                        | Items: 9
+Category: Yellow Roses                        | Items: 6
+Category: Blue Roses                          | Items: 5
+Category: Plant's ☘️                          | Items: 10
+Category: VIP Collection  🌸                   | Items: 13
+Category: Balloon's 🎈                         | Items: 15
+Category: Teddy Bear 🧸                        | Items: 5
+Category: Chocolate's 🍫                       | Items: 6
+Category: New Baby Collection 🍼               | Items: 3
+
+
+```
+
+```python
+# Let's inspect unique product names and image links
+print("Unique product names:", df['name'].nunique())
+print("Total rows:", len(df))
+
+# Let's see duplicates distribution
+name_counts = df['name'].value_counts()
+print("\nTop repeated names:")
+print(name_counts.head(15))
+
+
+```
+
+```text
+Unique product names: 166
+Total rows: 319
+
+Top repeated names:
+name
+Mix Rose 4        3
+Pink Rose 21      3
+Blue Rose 5       3
+Mix Rose 3        3
+New Baby Boy 1    3
+Orange Rose 9     2
+Orange Rose 1     2
+Orange Rose 2     2
+Orange Rose 4     2
+Orange Rose 5     2
+Orange Rose 7     2
+Orange Rose 8     2
+Orange Rose 10    2
+Yellow Rose 5     2
+Orange Rose 11    2
+Name: count, dtype: int64
+
+
+```
+
+```python
+# Let's inspect an item in "Offers" vs in "White Roses" or "Mix Roses"
+sample_mix_4 = []
+for cat in categories:
+    cat_title = cat.xpath('.//h4')[0].text_content().strip() if cat.xpath('.//h4') else ""
+    for it in cat.xpath('.//div[contains(@class, "sc-a31f9fb2-0")]'):
+        n = it.xpath('.//div[contains(@class, "item-name")]/div[contains(@class, "f-15")]')
+        if n and n[0].text_content().strip() == "Mix Rose 4":
+            old_p = it.xpath('.//*[@data-testid="old-price"]')
+            old_p_val = old_p[0].text_content().strip() if old_p else "None"
+            curr_p = it.xpath('.//div[contains(@class, "price")]//span[contains(@class, "currency ") or @class="currency"]')
+            curr_p_vals = [c.text_content().strip() for c in curr_p]
+            sample_mix_4.append((cat_title, old_p_val, curr_p_vals))
+
+for s in sample_mix_4:
+    print(s)
+
+
+```
+
+```text
+('Picks for you 🔥', 'JOD 24.00', ['24.00', '15.60'])
+('Offers', 'JOD 24.00', ['24.00', '15.60'])
+('Mix Roses', 'JOD 24.00', ['24.00', '15.60'])
+
+
+```
+
+Duplicate entries appearing across multiple categories in the source markup have been removed.
+
+You can highlight and copy the table below directly into Excel (or Google Sheets):
+
+| Product Name | Price Before Offer (JOD) | Image Link |
+| --- | --- | --- |
+| Mix Rose 4
+
+ | 24.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386425/b9efc2ef-db98-4e24-8daf-b2d1f3a42bc7.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386425/b9efc2ef-db98-4e24-8daf-b2d1f3a42bc7.jpg?width=172&height=172)`<br> |
+| Mix Rose 3
+
+ | 41.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386558/7832ec53-1e9e-4df4-822f-a61b0705da7b.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386558/7832ec53-1e9e-4df4-822f-a61b0705da7b.jpg?width=172&height=172)`<br> |
+| New Baby Boy 1
+
+ | 30.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070351/a27ca366-b2bf-42a0-a201-20f9714030f0.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070351/a27ca366-b2bf-42a0-a201-20f9714030f0.jpg?width=172&height=172)`<br> |
+| Pink Rose 21
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/9b8da7b1-b8fa-414a-bd15-0730f6b0fac8.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/9b8da7b1-b8fa-414a-bd15-0730f6b0fac8.jpg?width=172&height=172)`<br> |
+| Blue Rose 5
+
+ | 105.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000117072/8c5fbf2c-2d44-40f1-8358-4d45c3e0cb46.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000117072/8c5fbf2c-2d44-40f1-8358-4d45c3e0cb46.jpg?width=172&height=172)`<br> |
+| Deep love with chocolate
+
+ | 50.00 (No discount listed)
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386301/8947dbff-8f6e-4a70-b627-e840c6234b3c.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386301/8947dbff-8f6e-4a70-b627-e840c6234b3c.jpg?width=172&height=172)`<br> |
+| Blush Delight
+
+ | 24.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/7ac87363-e917-4fbb-b308-b4984054aae1.jpg?width=400&height=400&dpi=0.75?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/7ac87363-e917-4fbb-b308-b4984054aae1.jpg?width=400&height=400&dpi=0.75?width=172&height=172)`<br> |
+| Mix Rose 1
+
+ | 26.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386374/eb392c4d-7243-40da-996e-a31cf9f8e90f.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386374/eb392c4d-7243-40da-996e-a31cf9f8e90f.jpg?width=172&height=172)`<br> |
+| Mix Rose 2
+
+ | 57.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386386/9602fd69-d587-4d98-b81d-f3bb850d58aa.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386386/9602fd69-d587-4d98-b81d-f3bb850d58aa.jpg?width=172&height=172)`<br> |
+| Mix Rose 5
+
+ | 30.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386562/b6aed088-1704-41de-9bed-5d461d8722b1.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386562/b6aed088-1704-41de-9bed-5d461d8722b1.jpg?width=172&height=172)`<br> |
+| Mix Rose 6
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386569/5f507f52-2b52-497b-a99f-5685aad76bb6.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386569/5f507f52-2b52-497b-a99f-5685aad76bb6.jpg?width=172&height=172)`<br> |
+| Mix Rose 7
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386352/f945a57d-ccbe-4f74-bbec-bb483f78b354.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386352/f945a57d-ccbe-4f74-bbec-bb483f78b354.jpg?width=172&height=172)`<br> |
+| Mix Rose 10
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238605432/c76c655a-d138-4162-8122-08365d965be6.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238605432/c76c655a-d138-4162-8122-08365d965be6.jpg?width=172&height=172)`<br> |
+| Mix Rose 11
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238602355/271d06bb-18ad-49c5-b407-f3d34f01a096.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238602355/271d06bb-18ad-49c5-b407-f3d34f01a096.jpg?width=172&height=172)`<br> |
+| Mix Rose 14
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/cd163f89-d06f-46f8-93f7-88d6b85c08e8.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/cd163f89-d06f-46f8-93f7-88d6b85c08e8.jpg?width=172&height=172)`<br> |
+| Mix Rose 16
+
+ | 32.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/d586f249-f8cd-47da-8620-7974e0d07d04.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/d586f249-f8cd-47da-8620-7974e0d07d04.jpg?width=172&height=172)`<br> |
+| Mix Rose 18
+
+ | 32.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/4bfc53fe-02fa-4d27-a0a8-01f03ce0b730.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/4bfc53fe-02fa-4d27-a0a8-01f03ce0b730.jpg?width=172&height=172)`<br> |
+| Mix Rose 23
+
+ | 25.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2935223412/00c1872c-49ed-48e6-ad36-841d7a2743cf.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2935223412/00c1872c-49ed-48e6-ad36-841d7a2743cf.jpg?width=172&height=172)`<br> |
+| Mix rose 25
+
+ | 42.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2935218688/44dbb2be-7782-4e2e-a03c-b6665b8c478a.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2935218688/44dbb2be-7782-4e2e-a03c-b6665b8c478a.jpg?width=172&height=172)`<br> |
+| White Rose 1
+
+ | 4.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386401/800a549f-0c57-40ea-9fbe-72fdc8631446.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386401/800a549f-0c57-40ea-9fbe-72fdc8631446.jpg?width=172&height=172)`<br> |
+| White Rose 2
+
+ | 23.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386443/e56ac8ed-27a8-46a0-a54b-f2c6dc12243d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386443/e56ac8ed-27a8-46a0-a54b-f2c6dc12243d.jpg?width=172&height=172)`<br> |
+| White Rose 3
+
+ | 32.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999697368/3609282f-ecf1-4737-bf61-e0ba27d1a88f.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999697368/3609282f-ecf1-4737-bf61-e0ba27d1a88f.jpg?width=172&height=172)`<br> |
+| White Rose 5
+
+ | 25.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386543/3ffa1f6d-a51c-4880-ab99-75e7a9f4c99a.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386543/3ffa1f6d-a51c-4880-ab99-75e7a9f4c99a.jpg?width=172&height=172)`<br> |
+| White Rose 6
+
+ | 55.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999697376/0f422edb-1ff1-448d-b2e8-3de8fee11818.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999697376/0f422edb-1ff1-448d-b2e8-3de8fee11818.jpg?width=172&height=172)`<br> |
+| White Rose 7
+
+ | 36.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386546/d1a0dd31-5d76-41a8-8b5a-40e72ebe085e.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386546/d1a0dd31-5d76-41a8-8b5a-40e72ebe085e.jpg?width=172&height=172)`<br> |
+| White Rose 8
+
+ | 43.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386534/4df2a833-36e0-4fca-9437-516f8e3a8f1d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386534/4df2a833-36e0-4fca-9437-516f8e3a8f1d.jpg?width=172&height=172)`<br> |
+| White Rose 9
+
+ | 65.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999770450/9533933a-e220-45c4-b25d-5fdedead2fb9.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999770450/9533933a-e220-45c4-b25d-5fdedead2fb9.jpg?width=172&height=172)`<br> |
+| White Roses 10
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386462/159856f6-2f22-49a5-89b2-a7cb1835f682.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386462/159856f6-2f22-49a5-89b2-a7cb1835f682.jpg?width=172&height=172)`<br> |
+| White Rose 11
+
+ | 25.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386565/dbb1ff83-0e25-4b67-a02f-6f4ba9460e24.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386565/dbb1ff83-0e25-4b67-a02f-6f4ba9460e24.jpg?width=172&height=172)`<br> |
+| White Rose 12
+
+ | 25.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386577/a2b04e63-4148-4822-86ab-92865e30d8cf.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386577/a2b04e63-4148-4822-86ab-92865e30d8cf.jpg?width=172&height=172)`<br> |
+| White Rose 13
+
+ | 27.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386579/3505aba4-d4a7-4573-aed4-4fdea10409ef.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386579/3505aba4-d4a7-4573-aed4-4fdea10409ef.jpg?width=172&height=172)`<br> |
+| White Rose 14
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/3f425d32-859e-4d5a-a886-6e036effc6f5.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/3f425d32-859e-4d5a-a886-6e036effc6f5.jpg?width=172&height=172)`<br> |
+| White Rose 15
+
+ | 55.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2241194293/3c1a4462-b7e7-48c1-9f7b-678fbbc1c54a.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2241194293/3c1a4462-b7e7-48c1-9f7b-678fbbc1c54a.jpg?width=172&height=172)`<br> |
+| White Rose 16
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/23eed2a6-606e-47e1-85c8-8151aa641622.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/23eed2a6-606e-47e1-85c8-8151aa641622.jpg?width=172&height=172)`<br> |
+| White Rose 17
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/4dbc9ef2-e23f-466a-afbf-6a426c9e4503.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/4dbc9ef2-e23f-466a-afbf-6a426c9e4503.jpg?width=172&height=172)`<br> |
+| White Rose 18
+
+ | 30.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/bd5fa227-549a-4e92-ab2e-245f69bdc44b.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/bd5fa227-549a-4e92-ab2e-245f69bdc44b.jpg?width=172&height=172)`<br> |
+| White Rose 20
+
+ | 80.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/123cf82f-8126-4e54-b04e-ff4e48f831ac.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/123cf82f-8126-4e54-b04e-ff4e48f831ac.jpg?width=172&height=172)`<br> |
+| White rose 26
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/0b8242cb-6007-4e62-840f-3ea90c9aeecd.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/0b8242cb-6007-4e62-840f-3ea90c9aeecd.jpg?width=172&height=172)`<br> |
+| Pink Rose 1
+
+ | 4.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386409/eb559cca-7b46-4660-adc3-dd5dc5138f2b.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386409/eb559cca-7b46-4660-adc3-dd5dc5138f2b.jpg?width=172&height=172)`<br> |
+| Pink Rose 2
+
+ | 30.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/0edcd378-e670-4941-aca6-83dd3a6f34de.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/0edcd378-e670-4941-aca6-83dd3a6f34de.jpg?width=172&height=172)`<br> |
+| Pink Rose 3
+
+ | 23.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386447/42ed7842-7987-41e4-af53-636dd3ee9674.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386447/42ed7842-7987-41e4-af53-636dd3ee9674.jpg?width=172&height=172)`<br> |
+| Pink Rose 4
+
+ | 29.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386429/a6ca8678-84fc-44a5-9196-e68aa3a30d14.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386429/a6ca8678-84fc-44a5-9196-e68aa3a30d14.jpg?width=172&height=172)`<br> |
+| Pink Rose 5
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999770359/6582c717-624a-45de-8635-8a3411107f61.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999770359/6582c717-624a-45de-8635-8a3411107f61.jpg?width=172&height=172)`<br> |
+| Pink Rose 7
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386468/09bdd5fc-cfad-4a40-8225-ac1078dabbd3.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386468/09bdd5fc-cfad-4a40-8225-ac1078dabbd3.jpg?width=172&height=172)`<br> |
+| Pink Rose 8
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386539/42918801-0484-4afc-8615-5ead943572c0.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386539/42918801-0484-4afc-8615-5ead943572c0.jpg?width=172&height=172)`<br> |
+| Pink Rose 9
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386554/4e6a1e6f-b407-4cb8-83b2-9e4737dd7c5a.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386554/4e6a1e6f-b407-4cb8-83b2-9e4737dd7c5a.jpg?width=172&height=172)`<br> |
+| Pink Rose 10
+
+ | 25.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386585/ed0ab465-29b3-4619-bc5f-3731679cfa98.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386585/ed0ab465-29b3-4619-bc5f-3731679cfa98.jpg?width=172&height=172)`<br> |
+| Pink Rose 11
+
+ | 26.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386369/2b42da7e-7735-44b8-ba52-82c6d1c33905.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386369/2b42da7e-7735-44b8-ba52-82c6d1c33905.jpg?width=172&height=172)`<br> |
+| Pink Rose 12
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386551/e87f2157-4c4e-432e-bc20-e03a6cc381d9.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386551/e87f2157-4c4e-432e-bc20-e03a6cc381d9.jpg?width=172&height=172)`<br> |
+| Pink Rose 13
+
+ | 60.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994090407/d82c218d-126f-4ed0-bc02-95c54fc679d0.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994090407/d82c218d-126f-4ed0-bc02-95c54fc679d0.jpg?width=172&height=172)`<br> |
+| Pink Rose 14
+
+ | 60.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386587/3ab8db7c-9e65-4db5-8f5b-990c72390d26.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386587/3ab8db7c-9e65-4db5-8f5b-990c72390d26.jpg?width=172&height=172)`<br> |
+| Pink Rose 15
+
+ | 42.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1013399659/769e9cc9-49b7-46bf-9def-227fd6a9ded6.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1013399659/769e9cc9-49b7-46bf-9def-227fd6a9ded6.jpg?width=172&height=172)`<br> |
+| Pink Rose 16
+
+ | 55.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238604679/bf559438-5718-410b-92a8-57bdaee05a30.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238604679/bf559438-5718-410b-92a8-57bdaee05a30.jpg?width=172&height=172)`<br> |
+| Pink Rose 17
+
+ | 68.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238612286/f536eb86-d813-4d48-8793-84d91df5fd96.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238612286/f536eb86-d813-4d48-8793-84d91df5fd96.jpg?width=172&height=172)`<br> |
+| Pink Rose 18
+
+ | 55.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238612331/c5742f3c-bbbc-4390-b610-ed654728e422.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238612331/c5742f3c-bbbc-4390-b610-ed654728e422.jpg?width=172&height=172)`<br> |
+| Pink Rose 19
+
+ | 53.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/240753b1-8554-4cde-b969-a08cc01f10e4.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/240753b1-8554-4cde-b969-a08cc01f10e4.jpg?width=172&height=172)`<br> |
+| Pink Rose 20
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238619228/013aa5b5-30f3-485f-98bc-74fc9badb270.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/2238619228/013aa5b5-30f3-485f-98bc-74fc9badb270.jpg?width=172&height=172)`<br> |
+| Pink Rose 22
+
+ | 77.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/a10546bf-35df-4e24-a6ad-aa24adb68a30.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/a10546bf-35df-4e24-a6ad-aa24adb68a30.jpg?width=172&height=172)`<br> |
+| Pink Rose 23
+
+ | 36.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/645e29b2-c5ab-4a19-8b58-6a9cda08d09f.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/645e29b2-c5ab-4a19-8b58-6a9cda08d09f.jpg?width=172&height=172)`<br> |
+| Pink Rose 31
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/9d68fea3-bb82-434e-9925-9fd8b2db3789.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/9d68fea3-bb82-434e-9925-9fd8b2db3789.jpg?width=172&height=172)`<br> |
+| Pink Rose 33
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/53c4f40e-549a-4196-90af-a4885d18f88d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/53c4f40e-549a-4196-90af-a4885d18f88d.jpg?width=172&height=172)`<br> |
+| Red Rose Mix
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2650602328/ef6e3951-fcf6-46d5-bfd7-9dba1d032863.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2650602328/ef6e3951-fcf6-46d5-bfd7-9dba1d032863.jpg?width=172&height=172)`<br> |
+| Red Rose Bottle
+
+ | 16.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/4e4f5105-2955-4aa5-8dcd-e824e5197aca.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/4e4f5105-2955-4aa5-8dcd-e824e5197aca.jpg?width=172&height=172)`<br> |
+| One Rose 01
+
+ | 8.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386390/2c624c05-2de2-4d6f-acec-52f96e41501c.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386390/2c624c05-2de2-4d6f-acec-52f96e41501c.jpg?width=172&height=172)`<br> |
+| One Rose 02
+
+ | 4.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386394/72ac0aff-3385-4dc6-9487-637d85b95582.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386394/72ac0aff-3385-4dc6-9487-637d85b95582.jpg?width=172&height=172)`<br> |
+| One Rose 03
+
+ | 10.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386415/745e2f52-5de5-4b7b-a592-f292233876b5.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386415/745e2f52-5de5-4b7b-a592-f292233876b5.jpg?width=172&height=172)`<br> |
+| Red Rose 1
+
+ | 15.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386593/eee54a3c-0877-4abe-82e1-0257a222fc9f.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386593/eee54a3c-0877-4abe-82e1-0257a222fc9f.jpg?width=172&height=172)`<br> |
+| Red Rose 2
+
+ | 18.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386595/9d6a341e-d189-4abd-87ea-5a928420fcb5.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386595/9d6a341e-d189-4abd-87ea-5a928420fcb5.jpg?width=172&height=172)`<br> |
+| Red Rose 3
+
+ | 18.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386599/63d6a118-0a2a-496d-bfe1-b665bd7562c1.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386599/63d6a118-0a2a-496d-bfe1-b665bd7562c1.jpg?width=172&height=172)`<br> |
+| Red Rose 4
+
+ | 22.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386601/8e7a2930-b8c8-4387-831e-ce64e22cc123.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386601/8e7a2930-b8c8-4387-831e-ce64e22cc123.jpg?width=172&height=172)`<br> |
+| Red Rose 5
+
+ | 28.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386608/0fdc8ec7-f50b-438a-9d31-bfb553895f3d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386608/0fdc8ec7-f50b-438a-9d31-bfb553895f3d.jpg?width=172&height=172)`<br> |
+| Red Rose 6
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386611/0fe84019-5aab-4dc7-b3e2-ff9649df7080.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386611/0fe84019-5aab-4dc7-b3e2-ff9649df7080.jpg?width=172&height=172)`<br> |
+| Red Rose 7
+
+ | 37.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386613/452b5974-5a9d-48dc-844e-2b859c7b8630.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386613/452b5974-5a9d-48dc-844e-2b859c7b8630.jpg?width=172&height=172)`<br> |
+| Red Rose 8
+
+ | 42.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386615/efbeb42f-e87e-4d50-9709-bbb11b475558.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386615/efbeb42f-e87e-4d50-9709-bbb11b475558.jpg?width=172&height=172)`<br> |
+| Red Rose 9
+
+ | 37.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386617/e32f2ffd-2143-431a-b6e1-65809ad9b75b.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386617/e32f2ffd-2143-431a-b6e1-65809ad9b75b.jpg?width=172&height=172)`<br> |
+| Red Rose 10
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386622/67741e1b-15f5-4049-bf03-149f8d383d42.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386622/67741e1b-15f5-4049-bf03-149f8d383d42.jpg?width=172&height=172)`<br> |
+| Red Rose 11
+
+ | 51.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386625/2e1ec617-eae2-4422-b8cd-8af33c9c07db.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386625/2e1ec617-eae2-4422-b8cd-8af33c9c07db.jpg?width=172&height=172)`<br> |
+| Red Rose 12
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386628/abd39c35-ea08-4d27-9f74-2522b79790a3.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386628/abd39c35-ea08-4d27-9f74-2522b79790a3.jpg?width=172&height=172)`<br> |
+| Red Rose 13
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386632/3ae0a023-d99d-4937-936e-bf1d4815eadc.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386632/3ae0a023-d99d-4937-936e-bf1d4815eadc.jpg?width=172&height=172)`<br> |
+| Red Rose 14
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386636/12eb379b-2fe1-45cf-a282-120a6dcfac3f.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386636/12eb379b-2fe1-45cf-a282-120a6dcfac3f.jpg?width=172&height=172)`<br> |
+| Red Rose 15
+
+ | 48.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386640/f8b69c94-1a40-40e8-8f2e-64dc0d71cc3d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386640/f8b69c94-1a40-40e8-8f2e-64dc0d71cc3d.jpg?width=172&height=172)`<br> |
+| Red Rose 17
+
+ | 65.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386647/2b9fc159-e599-4be2-b71e-099f97224503.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386647/2b9fc159-e599-4be2-b71e-099f97224503.jpg?width=172&height=172)`<br> |
+| Red Rose 19
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386662/7790552e-eca1-417d-9655-eb216e6bca74.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386662/7790552e-eca1-417d-9655-eb216e6bca74.jpg?width=172&height=172)`<br> |
+| Red Roses 20
+
+ | 46.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386667/c13a5346-97e3-40aa-9441-8c15fce177a9.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386667/c13a5346-97e3-40aa-9441-8c15fce177a9.jpg?width=172&height=172)`<br> |
+| Red Rose 21
+
+ | 46.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386672/c09c9364-20af-48e5-90a3-ea8bf302c48f.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386672/c09c9364-20af-48e5-90a3-ea8bf302c48f.jpg?width=172&height=172)`<br> |
+| Red Roses 22
+
+ | 59.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386677/f6bf478d-a560-4a9c-92ca-12b018220240.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386677/f6bf478d-a560-4a9c-92ca-12b018220240.jpg?width=172&height=172)`<br> |
+| Red Roses 23
+
+ | 52.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386682/3993b495-8c0c-4a21-85ff-56e4ee97714c.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386682/3993b495-8c0c-4a21-85ff-56e4ee97714c.jpg?width=172&height=172)`<br> |
+| Red Rose 24
+
+ | 46.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386260/7fea4d96-5954-44b0-9dc9-c8d483006756.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386260/7fea4d96-5954-44b0-9dc9-c8d483006756.jpg?width=172&height=172)`<br> |
+| Red Rose 25
+
+ | 62.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386263/30b4dee5-729e-4d69-8a03-16448a005ebc.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386263/30b4dee5-729e-4d69-8a03-16448a005ebc.jpg?width=172&height=172)`<br> |
+| Red Rose 26
+
+ | 110.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386266/a9db3ad6-8fcb-4488-9354-ba93e35ad2a4.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/533386266/a9db3ad6-8fcb-4488-9354-ba93e35ad2a4.jpg?width=172&height=172)`<br> |
+| Red Rose 27
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2241203099/16c84780-db02-4465-937c-cf3dd7985a08.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2241203099/16c84780-db02-4465-937c-cf3dd7985a08.jpg?width=172&height=172)`<br> |
+| Peach Rose 1
+
+ | 3.40
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999982920/d1c539fa-37c0-4260-9f98-22da9d20207b.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999982920/d1c539fa-37c0-4260-9f98-22da9d20207b.jpg?width=172&height=172)`<br> |
+| Peach Rose 2
+
+ | 33.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386582/7ce42621-718f-4338-a3ba-8490afac86bd.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386582/7ce42621-718f-4338-a3ba-8490afac86bd.jpg?width=172&height=172)`<br> |
+| Peach Roses 3
+
+ | 32.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/997295833/70d88cc9-a17f-4df1-9fa6-c11933a414ba.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/997295833/70d88cc9-a17f-4df1-9fa6-c11933a414ba.jpg?width=172&height=172)`<br> |
+| Peach Rose 4
+
+ | 55.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994112510/a4ea986e-ed16-4717-a716-fa559da00ed3.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994112510/a4ea986e-ed16-4717-a716-fa559da00ed3.jpg?width=172&height=172)`<br> |
+| Peach Rose 5
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/997295561/2cb90e35-3d55-4e07-ab45-f1d73a749593.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/997295561/2cb90e35-3d55-4e07-ab45-f1d73a749593.jpg?width=172&height=172)`<br> |
+| Peach Rose 6
+
+ | 35.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386365/98001099-3b7a-47f6-9ebc-922b9e6125a3.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386365/98001099-3b7a-47f6-9ebc-922b9e6125a3.jpg?width=172&height=172)`<br> |
+| Orange Rose 1
+
+ | 4.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999956398/3a091b86-af7d-4d04-933f-cb7e3e23bd1e.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999956398/3a091b86-af7d-4d04-933f-cb7e3e23bd1e.jpg?width=172&height=172)`<br> |
+| Orange Rose 2
+
+ | 27.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/a09613e4-b942-4987-a68c-959e5dd22667.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/a09613e4-b942-4987-a68c-959e5dd22667.jpg?width=172&height=172)`<br> |
+| Orange Rose 4
+
+ | 21.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386455/fd99d3f2-6d99-47d4-9672-79d20af3f631.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386455/fd99d3f2-6d99-47d4-9672-79d20af3f631.jpg?width=172&height=172)`<br> |
+| Orange Rose 5
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999924942/64b43709-452d-4f7f-b8eb-79ceb83d53c9.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999924942/64b43709-452d-4f7f-b8eb-79ceb83d53c9.jpg?width=172&height=172)`<br> |
+| Orange Rose 7
+
+ | 25.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999960168/4964e3d0-2689-4ab5-bba8-a556ce0e53dd.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999960168/4964e3d0-2689-4ab5-bba8-a556ce0e53dd.jpg?width=172&height=172)`<br> |
+| Orange Rose 8
+
+ | 48.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999962520/fd3c9a12-1ac9-4871-82b6-9a1eb9c64c9e.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999962520/fd3c9a12-1ac9-4871-82b6-9a1eb9c64c9e.jpg?width=172&height=172)`<br> |
+| Orange Rose 9
+
+ | 42.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999982903/0a4fb62a-dc12-4f5c-8124-8315045a8809.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/999982903/0a4fb62a-dc12-4f5c-8124-8315045a8809.jpg?width=172&height=172)`<br> |
+| Orange Rose 10
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/94d97a8a-cc31-401b-885a-9c1d255bc915.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/94d97a8a-cc31-401b-885a-9c1d255bc915.jpg?width=172&height=172)`<br> |
+| Orange Rose 11
+
+ | 45.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/e84c5d2e-4124-47e3-bb43-f35d08eee844.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/e84c5d2e-4124-47e3-bb43-f35d08eee844.jpg?width=172&height=172)`<br> |
+| Yellow Rose 1
+
+ | 27.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2924181111/db7e5b47-4763-49c9-ad5b-783debcd5db1.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/2924181111/db7e5b47-4763-49c9-ad5b-783debcd5db1.jpg?width=172&height=172)`<br> |
+| Yellow Rose 2
+
+ | 56.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/b9e4e0a5-9609-425e-abba-9d637eb6ba60.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/b9e4e0a5-9609-425e-abba-9d637eb6ba60.jpg?width=172&height=172)`<br> |
+| Yellow Rose 3
+
+ | 46.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/fe96a172-4394-40d4-b554-36078a04244a.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/fe96a172-4394-40d4-b554-36078a04244a.jpg?width=172&height=172)`<br> |
+| Yellow Roses 4
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/d62d9c09-437c-4831-baa2-06a6e287bc8d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/d62d9c09-437c-4831-baa2-06a6e287bc8d.jpg?width=172&height=172)`<br> |
+| Yellow Rose 5
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/db6b7cf5-55ab-4120-9069-306c3e8042ba.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/db6b7cf5-55ab-4120-9069-306c3e8042ba.jpg?width=172&height=172)`<br> |
+| Yellow Rose 6
+
+ | 31.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/b3840c2b-2006-46fe-9f92-b50c306b7a13.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/b3840c2b-2006-46fe-9f92-b50c306b7a13.jpg?width=172&height=172)`<br> |
+| Blue Rose 1
+
+ | 5.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000033256/806d73ee-0e6c-4da0-949c-3032d78c9319.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000033256/806d73ee-0e6c-4da0-949c-3032d78c9319.jpg?width=172&height=172)`<br> |
+| Blue Rose 2
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000057342/0e72e975-9071-4a15-94fd-555b81599058.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000057342/0e72e975-9071-4a15-94fd-555b81599058.jpg?width=172&height=172)`<br> |
+| Blue Rose 3
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000117013/a5dbf243-76f0-4b63-a184-dae9a39ee10d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000117013/a5dbf243-76f0-4b63-a184-dae9a39ee10d.jpg?width=172&height=172)`<br> |
+| Blue Rose 4
+
+ | 80.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994112512/affa194d-259a-46a7-a788-7030ff4ddf65.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994112512/affa194d-259a-46a7-a788-7030ff4ddf65.jpg?width=172&height=172)`<br> |
+| White Orchid Plant Large Size
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386270/49029276-52cb-4429-82a9-8dbcb27d2b37.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386270/49029276-52cb-4429-82a9-8dbcb27d2b37.jpg?width=172&height=172)`<br> |
+| Pink Orchid Plant Large Size
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386269/99581d94-eec3-48fd-90b7-9620984ec458.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386269/99581d94-eec3-48fd-90b7-9620984ec458.jpg?width=172&height=172)`<br> |
+| Blue Orchid Plant Large size
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386274/ad1d0192-6e87-4dd6-9ffa-70ecb485f882.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386274/ad1d0192-6e87-4dd6-9ffa-70ecb485f882.jpg?width=172&height=172)`<br> |
+| White orchid plant x2
+
+ | 100.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/d0079fb0-29e6-4b97-a4c0-dd5e55c256a0.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/d0079fb0-29e6-4b97-a4c0-dd5e55c256a0.jpg?width=172&height=172)`<br> |
+| Orchid plant x2 flowers
+
+ | 100.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/605a73a9-8f93-48a4-9013-354e42e64f8c.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/product/605a73a9-8f93-48a4-9013-354e42e64f8c.jpg?width=172&height=172)`<br> |
+| ☘️ Dracaena Plant
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386281/d0547245-fd23-4ad1-a998-d1f054f85b46.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386281/d0547245-fd23-4ad1-a998-d1f054f85b46.jpg?width=172&height=172)`<br> |
+| ☘️zamiifolia Plant
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386277/e2d7b91f-dec5-4a74-9119-5b7e6e06f150.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386277/e2d7b91f-dec5-4a74-9119-5b7e6e06f150.jpg?width=172&height=172)`<br> |
+| Anthurium Plant
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386294/cdb41e1c-5375-4330-9c06-cb52221742fc.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386294/cdb41e1c-5375-4330-9c06-cb52221742fc.jpg?width=172&height=172)`<br> |
+| ☘️spathiphyllum Plant 1
+
+ | 40.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386288/baba4e6e-1bda-4756-b7d4-eb311c7091c0.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386288/baba4e6e-1bda-4756-b7d4-eb311c7091c0.jpg?width=172&height=172)`<br> |
+| ☘️spathypelum Plant 2
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386290/7fb9e37c-d703-4d33-b7f8-4c73e72c6615.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386290/7fb9e37c-d703-4d33-b7f8-4c73e72c6615.jpg?width=172&height=172)`<br> |
+| Helium Balloon
+
+ | 2.25
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386342/403ada54-a2f4-4cd7-af64-5717622a2c0e.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386342/403ada54-a2f4-4cd7-af64-5717622a2c0e.jpg?width=172&height=172)`<br> |
+| Happy Mother's Day Balloon
+
+ | 6.00
+
+ | `[https://talabat.dhmedia.io/image/talabat/MenuItems/mmw_638776583038883859?width=172&height=172](https://talabat.dhmedia.io/image/talabat/MenuItems/mmw_638776583038883859?width=172&height=172)`<br> |
+| A Group Of Mother's Day Helium Balloon
+
+ | 24.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1271567982/2ce05c94-673c-4223-94c7-ce485342fdb2.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1271567982/2ce05c94-673c-4223-94c7-ce485342fdb2.jpg?width=172&height=172)`<br> |
+| I Love You Balloon
+
+ | 2.25
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386350/6da9da11-eed3-4d11-8eb2-3151fe7eae29.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386350/6da9da11-eed3-4d11-8eb2-3151fe7eae29.jpg?width=172&height=172)`<br> |
+| Heart Balloon
+
+ | 6.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386346/720468c6-c30d-44b3-bb12-13d61f328eb6.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386346/720468c6-c30d-44b3-bb12-13d61f328eb6.jpg?width=172&height=172)`<br> |
+| 4 Heart Balloons
+
+ | 24.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/9d0e7585-b2aa-4ec7-bde2-435174eb8ce5.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/9d0e7585-b2aa-4ec7-bde2-435174eb8ce5.jpg?width=172&height=172)`<br> |
+| 5 red helium balloons
+
+ | 11.25
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/44f070d9-d2eb-4687-ba9f-daadeb99be33.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/44f070d9-d2eb-4687-ba9f-daadeb99be33.jpg?width=172&height=172)`<br> |
+| Gold Helium Balloons
+
+ | 22.50
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386353/141d664c-3706-42e6-b22a-0a3a50a7c644.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386353/141d664c-3706-42e6-b22a-0a3a50a7c644.jpg?width=172&height=172)`<br> |
+| 10 Bronze Helium Balloons
+
+ | 20.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1001195379/955f9776-f2ea-4006-b48c-42f2b843a2ed.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1001195379/955f9776-f2ea-4006-b48c-42f2b843a2ed.jpg?width=172&height=172)`<br> |
+| 7 Silver Helium Balloons
+
+ | 14.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1001195302/388e6592-3abf-4945-ab2d-c5431aa2fb68.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1001195302/388e6592-3abf-4945-ab2d-c5431aa2fb68.jpg?width=172&height=172)`<br> |
+| 7 Purple Helium Balloons
+
+ | 14.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1003821155/873e8763-b8c9-4873-ad3b-61bec29a0b49.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1003821155/873e8763-b8c9-4873-ad3b-61bec29a0b49.jpg?width=172&height=172)`<br> |
+| Pink Helium Balloon 8
+
+ | 18.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386356/20111589-f140-4fa1-a8de-6eeb3c0fdaa9.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386356/20111589-f140-4fa1-a8de-6eeb3c0fdaa9.jpg?width=172&height=172)`<br> |
+| Birthday Helium Balloon
+
+ | 7.00
+
+ | `[https://talabat.dhmedia.io/image/talabat/MenuItems/mmw_638720243096595567?width=172&height=172](https://talabat.dhmedia.io/image/talabat/MenuItems/mmw_638720243096595567?width=172&height=172)`<br> |
+| It's A Boy Helium Balloon
+
+ | 7.00
+
+ | `[https://talabat.dhmedia.io/image/talabat/MenuItems/mmw_638720246820449608?width=172&height=172](https://talabat.dhmedia.io/image/talabat/MenuItems/mmw_638720246820449608?width=172&height=172)`<br> |
+| It's a Girl Baby Helium Balloons
+
+ | 17.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1003917310/7b08187d-91f6-43b9-aa90-7a98090557dc.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1003917310/7b08187d-91f6-43b9-aa90-7a98090557dc.jpg?width=172&height=172)`<br> |
+| Teddy Bear 2
+
+ | 10.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386366/e2c1e6e0-a7e8-4976-8e83-3caee614bd45.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386366/e2c1e6e0-a7e8-4976-8e83-3caee614bd45.jpg?width=172&height=172)`<br> |
+| Teddy Bear 3
+
+ | 30.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386370/e01ad13b-0abc-4104-99a5-985a65a3afd5.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/533386370/e01ad13b-0abc-4104-99a5-985a65a3afd5.jpg?width=172&height=172)`<br> |
+| Teddy Bear 4
+
+ | 10.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000118078/710c0eb8-d84f-4237-ba28-da042112dbf5.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000118078/710c0eb8-d84f-4237-ba28-da042112dbf5.jpg?width=172&height=172)`<br> |
+| Teddy Bear 5
+
+ | 10.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994112285/9066c699-714d-477d-a7bd-e83d93aefc8d.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994112285/9066c699-714d-477d-a7bd-e83d93aefc8d.jpg?width=172&height=172)`<br> |
+| Teddy Bear 6
+
+ | 10.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000133690/e97ab092-dd93-41cc-aa10-5adbf4fe53ed.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/1000133690/e97ab092-dd93-41cc-aa10-5adbf4fe53ed.jpg?width=172&height=172)`<br> |
+| New Baby Girl 2
+
+ | 30.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070128/f627eaea-f71a-4641-a0f7-8aef2e9426fe.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070128/f627eaea-f71a-4641-a0f7-8aef2e9426fe.jpg?width=172&height=172)`<br> |
+| New Baby Girl 3
+
+ | 50.00
+
+ | `[https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070133/60533fda-cef0-4806-bcd8-601f05f7a1d3.jpg?width=172&height=172](https://images.deliveryhero.io/image/global-menu-service/TB_JO/vendor/602944/PRODUCT/994070133/60533fda-cef0-4806-bcd8-601f05f7a1d3.jpg?width=172&height=172)`<br> |

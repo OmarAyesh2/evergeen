@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Ever Green product photograph coming soon</title>
+  <desc id="desc">An elegant floral illustration in Ever Green brand colors.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee7dc"/><stop offset="1" stop-color="#d8c8b8"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <g fill="none" stroke="#122536" stroke-width="3" opacity=".76">
+    <path d="M401 690c-8-160 10-291 4-395M403 526c-75-24-126-80-148-164M405 455c72-26 121-85 139-171"/>
+    <path d="M252 364c-57-17-90-65-91-119 57 9 96 50 91 119ZM544 286c-5-58 28-104 82-126 13 58-11 109-82 126Z" fill="#f3b8af"/>
+    <circle cx="403" cy="263" r="91" fill="#f3b8af"/><circle cx="403" cy="263" r="34" fill="#f5f1e9"/>
+    <path d="M403 172c-55-40-107 18-65 68-64 11-56 88 5 91 10 65 86 57 91 0 65-10 57-88 0-91 36-59-20-105-31-68Z"/>
+  </g>
+  <text x="400" y="800" text-anchor="middle" font-family="Georgia,serif" font-size="46" letter-spacing="8" fill="#122536">EVER GREEN</text>
+  <text x="400" y="850" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" letter-spacing="5" fill="#64717a">FLOWERS · AMMAN</text>
+</svg>
